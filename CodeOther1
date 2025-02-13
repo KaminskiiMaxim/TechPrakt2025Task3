@@ -2,10 +2,12 @@ using UnityEngine;
 
 namespace Offer.Tool.Cheats
 {
-    public class OfferCheatType : MonoBehaviour
+    //using interface for proxy
+    public class OfferCheatType : MonoBehaviour, IOfferOptionCheatType
     {
-        [SerializeField] private string OfferTypeField;
-        [SerializeField] private OfferProxy OfferProxy;
+        //correct naming letter case
+        [SerializeField] private string offerTypeField;
+        [SerializeField] private OfferProxy offerProxy;
 
         public string OptionType { get { return OfferType(); }}
         public OfferProxy Proxy { get { return OfferProxy; }}
