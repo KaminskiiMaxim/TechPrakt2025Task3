@@ -39,13 +39,13 @@ namespace Offer.Tool.Cheats
 
         protected virtual void AddOption()
         {
-            if (OfferManager.Instance.CheatManager != null)
+            if (OfferManager.Instance.CheatManager != null && !OfferManager.Instance.CheatManager.ContainsOptionType(this))
                 OfferManager.Instance.CheatManager.AddOptionType(this);
         }
 
         protected virtual void RemoveOption()
         {
-            if (OfferManager.Instance.CheatManager != null)
+            if (OfferManager.Instance.CheatManager != null && OfferManager.Instance.CheatManager.ContainsOptionType(this))
                 OfferManager.Instance.CheatManager.RemoveOptionType(OptionType);
         }
     }
