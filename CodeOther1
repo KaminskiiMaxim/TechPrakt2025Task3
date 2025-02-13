@@ -17,23 +17,31 @@ namespace Offer.Tool.Cheats
 
         protected virtual void Start()
         {
-            if (OfferManager.Instance.CheatManager != null)
-                OfferManager.Instance.CheatManager.AddOptionType(this);
+            AddOption();
         }
 
         protected virtual void OnEnable()
         {
-            if (OfferManager.Instance.CheatManager != null)
-                OfferManager.Instance.CheatManager.AddOptionType(this);
+            AddOption();
         }
 
         protected virtual void OnDisable()
         {
-            if (OfferManager.Instance.CheatManager != null)
-                OfferManager.Instance.CheatManager.RemoveOptionType(OptionType);
+            RemoveOption();
         }
 
         protected virtual void OnDestroy()
+        {
+            RemoveOption();
+        }
+
+        protected virtual void AddOption()
+        {
+            if (OfferManager.Instance.CheatManager != null)
+                OfferManager.Instance.CheatManager.AddOptionType(this);
+        }
+
+        protected virtual void RemoveOption()
         {
             if (OfferManager.Instance.CheatManager != null)
                 OfferManager.Instance.CheatManager.RemoveOptionType(OptionType);
