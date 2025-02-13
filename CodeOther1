@@ -2,10 +2,12 @@ using UnityEngine;
 
 namespace Offer.Tool.Cheats
 {
-    public class OfferCheatType : MonoBehaviour
+    //using interface for proxy
+    public class OfferCheatType : MonoBehaviour, IOfferOptionCheatType
     {
-        [SerializeField] private string OfferTypeField;
-        [SerializeField] private OfferProxy OfferProxy;
+        //correct naming letter case
+        [SerializeField] private string offerTypeField;
+        [SerializeField] private OfferProxy offerProxy;
 
         public string OptionType { get { return OfferType(); }}
         public OfferProxy Proxy { get { return OfferProxy; }}
@@ -17,26 +19,34 @@ namespace Offer.Tool.Cheats
 
         protected virtual void Start()
         {
-            if (OfferManager.Instance.CheatManager != null && !OfferManager.Instance.CheatManager.ContainsOptionType(this))
-                 OfferManager.Instance.CheatManager.AddOptionType(this);
+            AddOption();
         }
 
         protected virtual void OnEnable()
         {
-            if (OfferManager.Instance.CheatManager != null && !OfferManager.Instance.CheatManager.ContainsOptionType(this))
-                 OfferManager.Instance.CheatManager.AddOptionType(this);
+            AddOption();
         }
 
         protected virtual void OnDisable()
         {
-            if (OfferManager.Instance.CheatManager != null && OfferManager.Instance.CheatManager.ContainsOptionType(this))
-                 OfferManager.Instance.CheatManager.RemoveOptionType(OptionType);
+            RemoveOption();
         }
 
         protected virtual void OnDestroy()
         {
+            RemoveOption();
+        }
+
+        protected virtual void AddOption()
+        {
+            if (OfferManager.Instance.CheatManager != null && !OfferManager.Instance.CheatManager.ContainsOptionType(this))
+                OfferManager.Instance.CheatManager.AddOptionType(this);
+        }
+
+        protected virtual void RemoveOption()
+        {
             if (OfferManager.Instance.CheatManager != null && OfferManager.Instance.CheatManager.ContainsOptionType(this))
-                 OfferManager.Instance.CheatManager.RemoveOptionType(OptionType);
+                OfferManager.Instance.CheatManager.RemoveOptionType(OptionType);
         }
     }
 }
