@@ -1,0 +1,42 @@
+using UnityEngine;
+
+namespace Offer.Tool.Cheats
+{
+    public class OfferCheatType : MonoBehaviour
+    {
+        [SerializeField] private string OfferTypeField;
+        [SerializeField] private OfferProxy OfferProxy;
+
+        public string OptionType { get { return OfferType(); }}
+        public OfferProxy Proxy { get { return OfferProxy; }}
+
+        protected virtual string OfferType()
+        {
+            return OfferTypeField;
+        }
+
+        protected virtual void Start()
+        {
+            if (OfferManager.Instance.CheatManager != null)
+                OfferManager.Instance.CheatManager.AddOptionType(this);
+        }
+
+        protected virtual void OnEnable()
+        {
+            if (OfferManager.Instance.CheatManager != null)
+                OfferManager.Instance.CheatManager.AddOptionType(this);
+        }
+
+        protected virtual void OnDisable()
+        {
+            if (OfferManager.Instance.CheatManager != null)
+                OfferManager.Instance.CheatManager.RemoveOptionType(OptionType);
+        }
+
+        protected virtual void OnDestroy()
+        {
+            if (OfferManager.Instance.CheatManager != null)
+                OfferManager.Instance.CheatManager.RemoveOptionType(OptionType);
+        }
+    }
+}
